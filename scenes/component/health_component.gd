@@ -18,6 +18,7 @@ func damage(damage_amount: float):
 	health_changed.emit()
 	if damage_amount > 0:
 		health_decreased.emit()
+	# Waits for first idle frame
 	Callable(check_death).call_deferred()
 
 

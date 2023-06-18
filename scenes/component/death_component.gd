@@ -12,7 +12,7 @@ func _ready():
 func on_died():
 	if owner == null || not owner is Node2D:
 		return
-		
+
 	var spawn_position = owner.global_position
 	
 	var entities = get_tree().get_first_node_in_group("entities_layer")

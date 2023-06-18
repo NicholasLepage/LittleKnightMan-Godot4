@@ -9,14 +9,13 @@ var base_damage = 3
 var additional_damage_percent = 1
 var base_wait_time
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	base_wait_time = $Timer.wait_time
 	$Timer.timeout.connect(on_timer_timeout)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
@@ -33,7 +32,8 @@ func on_timer_timeout():
 	
 	if enemies.size() == 0:
 		return
-		
+	
+	# Determines which enemy is closest to the player.
 	enemies.sort_custom(func(a: Node2D, b: Node2D):
 		var a_distance = a.global_position.distance_squared_to(player.global_position)
 		var b_distance = b.global_position.distance_squared_to(player.global_position)

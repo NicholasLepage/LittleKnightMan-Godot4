@@ -11,7 +11,7 @@ func play_random():
 		return
 	
 	if randomize_pitch:
-		pitch_scale = randf_range(min_pitch, max_pitch)
+		pitch_scale = randf_range(min_pitch, max_pitch)	#Even more variety
 	else:
 		pitch_scale = 1
 	

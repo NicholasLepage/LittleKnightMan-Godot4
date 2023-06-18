@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
+.git/
 .godot/
+addons/
+assets/

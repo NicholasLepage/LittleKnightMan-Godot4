@@ -20,7 +20,8 @@ func _ready():
 	timer.timeout.connect(on_timer_timeout)
 	arena_time_manager.arena_difficulty_increased.connect(on_arena_difficulty_increased)
 
-
+# Randomly shoots a raycast in 1 of 4 directions, checks if it collides with a wall.
+# If it does, rotate 90 degrees and check again. If not, spawn the enemy.
 func get_spawn_position():
 	var player = get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
@@ -28,7 +29,7 @@ func get_spawn_position():
 	
 
 	var spawn_position = Vector2.ZERO
-	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
+	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))  # TAU is PI*2, or the circomference of a circle in radians
 	
 	for i in 4:
 		spawn_position = player.global_position + (random_direction * SPAWN_RADIUS)
@@ -56,7 +57,7 @@ func on_timer_timeout():
 	entities_layer.add_child(enemy)
 	enemy.global_position = get_spawn_position()
 
-
+# Handles increasing difficulty. TODO: Not balanced
 func on_arena_difficulty_increased(arena_difficulty: int):
 	var time_off = (.1 / 12) * arena_difficulty
 	time_off = min(time_off, .7)

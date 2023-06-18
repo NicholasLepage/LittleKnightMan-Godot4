@@ -14,6 +14,7 @@ extends CharacterBody2D
 var number_colliding_bodies = 0
 var base_speed = 0
 
+
 func _ready():
 	arena_time_manager.arena_difficulty_increased.connect(on_arena_difficulty_increased)
 	base_speed = velocity_component.max_speed
@@ -43,7 +44,7 @@ func _process(delta):
 	if move_sign != 0:
 		visuals.scale = Vector2(move_sign, 1)
 
-
+# Nice easier way to calculate movement, found online.
 func get_movement_vector():
 	var x_movement = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var y_movement = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -89,7 +90,7 @@ func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades:
 		abilities.add_child(ability.ability_controller_scene.instantiate())
 	elif ability_upgrade.id == "player_speed":
 		velocity_component.max_speed = base_speed + (base_speed * current_upgrades["player_speed"]["quantity"] * .1)
-		
+
 
 func on_arena_difficulty_increased(difficulty: int):
 	var health_regeneration_quantity = MetaProgression.get_upgrade_count("health_regeneration") 
@@ -97,5 +98,3 @@ func on_arena_difficulty_increased(difficulty: int):
 		var is_thirty_second_interval = (difficulty % 6) == 0
 		if is_thirty_second_interval:
 			health_component.heal(health_regeneration_quantity)
-		
-	
