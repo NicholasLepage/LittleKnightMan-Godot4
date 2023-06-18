@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bih2hxersc7pa"]
+
+[ext_resource type="Script" path="res://scenes/manager/upgrade_manager.gd" id="1_4gpeb"]
+[ext_resource type="PackedScene" uid="uid://ehyktbbkeaah" path="res://scenes/ui/upgrade_screen.tscn" id="3_ktmp1"]
+[ext_resource type="PackedScene" uid="uid://rghg1ok27w5u" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="5_xp7kr"]
+
+[node name="UpgradeManager" type="Node"]
+script = ExtResource("1_4gpeb")
+upgrade_screen_scene = ExtResource("3_ktmp1")
+
+[node name="SwordAbilityController" parent="." instance=ExtResource("5_xp7kr")]

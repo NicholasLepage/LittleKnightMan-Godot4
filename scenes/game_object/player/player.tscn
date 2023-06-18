@@ -1,0 +1,184 @@
+[gd_scene load_steps=19 format=3 uid="uid://v1pe0jbvqyhk"]
+
+[ext_resource type="Texture2D" uid="uid://b7mgw62r2hn13" path="res://scenes/game_object/player/player.png" id="1_mnpil"]
+[ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_ncx8c"]
+[ext_resource type="PackedScene" uid="uid://rghg1ok27w5u" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_a6mht"]
+[ext_resource type="PackedScene" uid="uid://biogjuc4a5elm" path="res://scenes/component/health_component.tscn" id="2_jsbb1"]
+[ext_resource type="PackedScene" uid="uid://bea44qy1ikpqi" path="res://scenes/component/velocity_component.tscn" id="2_t0xye"]
+[ext_resource type="PackedScene" uid="uid://co5756cdnmv3r" path="res://scenes/component/random_stream_player_2d_component.tscn" id="5_eko4c"]
+[ext_resource type="AudioStream" uid="uid://cf0tfxfotaveq" path="res://assets/audio/impactMining_000.ogg" id="6_4ykor"]
+[ext_resource type="AudioStream" uid="uid://b5glmmwwe4aoa" path="res://assets/audio/impactMining_001.ogg" id="7_sdy80"]
+[ext_resource type="AudioStream" uid="uid://cw7rqv0fro6wt" path="res://assets/audio/impactMining_002.ogg" id="8_8gml5"]
+[ext_resource type="AudioStream" uid="uid://bkyu4f5d730ii" path="res://assets/audio/impactMining_003.ogg" id="9_8cvqk"]
+[ext_resource type="AudioStream" uid="uid://w2k18r6wx8g1" path="res://assets/audio/impactMining_004.ogg" id="10_ir6v7"]
+
+[sub_resource type="Animation" id="Animation_u6i31"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yr6x6"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.261799, 0.261799, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(0.784584, 2.73208, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.1), Vector2(1.5, 0.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oxf5r"]
+_data = {
+"RESET": SubResource("Animation_u6i31"),
+"walk": SubResource("Animation_yr6x6")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olwaq"]
+bg_color = Color(0.262745, 0.882353, 0.701961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.14902, 0.192157, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvo7h"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6jxso"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sj612"]
+radius = 5.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 0
+motion_mode = 1
+script = ExtResource("1_ncx8c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oxf5r")
+}
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_t0xye")]
+max_speed = 90
+acceleration = 25.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_jsbb1")]
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="SwordAbilityController" parent="Abilities" instance=ExtResource("2_a6mht")]
+
+[node name="HitRandomStreamPlayer" parent="." instance=ExtResource("5_eko4c")]
+streams = Array[AudioStream]([ExtResource("6_4ykor"), ExtResource("7_sdy80"), ExtResource("8_8gml5"), ExtResource("9_8cvqk"), ExtResource("10_ir6v7")])
+
+[node name="DamageIntervalTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(32, 6)
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = -18.0
+pivot_offset = Vector2(16, 3)
+theme_override_styles/fill = SubResource("StyleBoxFlat_olwaq")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="PickupArea2D" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -5)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
+shape = SubResource("CircleShape2D_dvo7h")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1_mnpil")
+offset = Vector2(0, -8)
+
+[node name="CollisionArea2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea2D"]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_6jxso")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_sj612")

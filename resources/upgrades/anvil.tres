@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://ch10tvon3gg4q"]
+
+[ext_resource type="PackedScene" uid="uid://c0kvovqg57rot" path="res://scenes/ability/anvil_ability_controller/anvil_ability_controller.tscn" id="1_e2e3c"]
+[ext_resource type="Script" path="res://resources/upgrades/ability.gd" id="2_26aru"]
+
+[resource]
+script = ExtResource("2_26aru")
+ability_controller_scene = ExtResource("1_e2e3c")
+id = "anvil"
+max_quantity = 1
+name = "Anvil"
+description = "Drops anvils randomly around the Little Knight."
